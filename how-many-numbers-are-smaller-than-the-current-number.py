@@ -1,13 +1,16 @@
+from typing import List
+
 class Solution:
-    def smallerNumbersThanCurrent(self, nums):
+    def smallerNumbersThanCurrent(self, nums: List[int]) -> List[int]:
         result = []
-        n = len(nums)
-        
-        for i in range(n):
-            count = 0
-            for j in range(n):
-                if i != j and nums[j] < nums[i]:
-                    count += 1
-            result.append(count)
-        
+        dictionary = {}
+        sn = sorted(nums)
+
+        for x in range(len(sn)):
+            if sn[x] not in dictionary:
+                dictionary[sn[x]] = x
+
+        for i in nums:
+            result.append(dictionary[i])
+
         return result
