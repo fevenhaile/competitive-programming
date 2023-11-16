@@ -1,8 +1,12 @@
-class Solution(object):
+class Solution:
     def majorityElement(self, nums):
-        result,counter=0,0
-        for i in nums:
-            if counter==0:
-                result=i
-            counter+=(1 if i==result else -1)
-        return result
+        count = 0
+        candidate = None
+
+        # Finding the potential majority candidate
+        for num in nums:
+            if count == 0:
+                candidate = num
+            count += 1 if num == candidate else -1
+
+        return candidate
