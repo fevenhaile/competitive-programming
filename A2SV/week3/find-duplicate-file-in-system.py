@@ -1,18 +1,25 @@
 class Solution:
     def findDuplicate(self, paths: List[str]) -> List[List[str]]:
-        content_dict = {}
+        file_content_map = {}
+        duplicates = []
 
         for path in paths:
-            components = path.split()
-            directory = components[0]
-            for i in range(1, len(components)):
-                file_name, content = components[i].split('(')
-                content = content[:-1]
+            path_parts = path.split()
+            directory = path_parts[0]
+
+            for i in range(1, len(path_parts)):
+                file_info = path_parts[i].split('(')
+                file_name = file_info[0]
+                content = file_info[1][:-1]
                 file_path = directory + '/' + file_name
-                if content in content_dict:
-                    content_dict[content].append(file_path)
+
+                if content in file_content_map:
+                    file_content_map[content].append(file_path)
                 else:
-                    content_dict[content] = [file_path]
-        
-        duplicates = [files for files in content_dict.values() if len(files) > 1]
+                    file_content_map[content] = [file_path]
+
+        for content, file_paths in file_content_map.items():
+            if len(file_paths) > 1:
+                duplicates.append(file_paths)
+
         return duplicates
