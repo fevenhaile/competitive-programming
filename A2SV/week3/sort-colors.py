@@ -1,9 +1,18 @@
-class Solution:
-    def sortColors(self, nums: List[int]) -> None:
-        for i in range(1,len(nums)):
-            j = i
-            while nums[j-1] > nums[j] and j>0:
-                nums[j-1],nums[j] = nums[j],nums[j-1]
-                j-=1
-        
-        
+class Solution(object):
+    def sortColors(self, nums):
+        red=white=0
+        blue=len(nums)-1
+
+        while white<=blue:
+            curr=nums[white]
+            if curr==0:
+                nums[white]=nums[red]
+                nums[red]=0
+                red+=1
+                white+=1
+            elif curr==1:
+                white+=1
+            else:
+                nums[white]=nums[blue]
+                nums[blue]=2
+                blue-=1    
